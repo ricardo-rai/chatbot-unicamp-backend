@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["p2o <ricardo@p2o.com.br>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.78.0"
+uvicorn = "^0.17.6"
+dynaconf = "^3.1.9"
+pymongo = "^4.1.1"
+transformers = "^4.20.0"
+torch = "^1.11.0"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^4.0.1"
+black = "^22.3.0"
+pytest = "^7.1.2"
+pytest-env = "^0.6.2"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

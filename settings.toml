@@ -1,0 +1,10 @@
+[default]
+PROJECT_NAME = "Chatbot UNICAMP API"
+APPLICATION = "bot-bert-api"
+API_PREFIX = ""
+DEBUG = true
+LOG_LEVEL = "INFO"
+MODEL_NAME = "p2o/neuralmind-bert-base-portuguese-squad"
+
+[testing]
+MONGODB_DSN = "mongodb://user:password@server/db"

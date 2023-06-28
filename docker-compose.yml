@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: bot-bert-unicamp
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload --log-level debug
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+    networks:
+      network:
+        ipv4_address: 10.1.0.3
+
+networks:
+    network:
+      name: network-mongo
+      external: true
