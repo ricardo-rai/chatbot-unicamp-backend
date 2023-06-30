@@ -2,7 +2,6 @@ from .service import BotService
 
 from bot_unicamp.common import GenericError
 from bot_unicamp.history import History
-from transformers import pipeline
 
 
 class BotController:
@@ -12,9 +11,9 @@ class BotController:
     ):
         self.bot_service = bot_service
 
-    def ask(self, episode: History, nn: pipeline) -> History:
+    def ask(self, episode: History) -> History:
         try:
-            history = self.bot_service.ask(episode, nn)
+            history = self.bot_service.ask(episode)
         except Exception as err:
             raise GenericError(err)
 

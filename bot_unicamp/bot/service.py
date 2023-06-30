@@ -14,17 +14,21 @@ class BotService:
         self,
         bot_repository: BotRepository,
         create_database_context: MongoDatabaseContext,
+        create_nn_context: pipeline,
     ):
         self.bot_repository = bot_repository
         self.create_database_context = create_database_context
+        self.create_nn_context = create_nn_context
 
     def _get_answer(
-        self, episode: History, contexts: List[Context], nn: pipeline
-    ) -> History:
+        self, episode: History, contexts: List[Context]) -> History:
 
         answer = {"score": 0}
         for context in contexts:
-            result = nn(question=episode.question, context=context.context)
+            result = self.create_nn_context(
+                question=episode.question, 
+                context=context.context
+            )
             if result["score"] > answer["score"]:
                 answer = result
                 episode.context = context.context
@@ -40,8 +44,8 @@ class BotService:
 
         return contexts
 
-    def ask(self, episode: History, nn: pipeline) -> History:
+    def ask(self, episode: History) -> History:
         episode.askedAt = str(dt.now())
         contexts = self._get_contexts()
 
-        return self._get_answer(episode, contexts, nn)
+        return self._get_answer(episode, contexts)

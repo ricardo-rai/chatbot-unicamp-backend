@@ -18,21 +18,22 @@ def setup(nn):
     @router.post("/bot", tags=["get answer for a question"])
     def post_question_answer(episode: History):
 
-        bot_repository = BotRepository()
         mongodb_bot = MongoDatabaseContext(
             db_uri=settings.get("MONGODB_DSN"),
             db_name="BotUnicamp",
             db_collection="contexts",
         )
+        bot_repository = BotRepository()
         bot_service = BotService(
             bot_repository=bot_repository,
             create_database_context=mongodb_bot,
+            create_nn_context=nn,
         )
         bot_controller = BotController(
             bot_service=bot_service,
         )
 
-        episode = bot_controller.ask(episode, nn)
+        episode = bot_controller.ask(episode)
 
         history_repository = HistoryRepository()
         mongodb_history = MongoDatabaseContext(
